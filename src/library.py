@@ -5,7 +5,7 @@ class Book:
         self.book_id = book_id
         self.title = title
         self.author = author
-        
+        self.is_borrowed = False   
 
 class Library:
     def __init__(self):
@@ -15,6 +15,23 @@ class Library:
         if book.book_id in self.books:
             raise ValueError("Duplicate Book ID")
         self.books[book.book_id] = book
+    
+    def borrow_book(self, book_id):
+        if book_id not in self.books:
+            raise ValueError("Book not found")
+
+        book = self.books[book_id]
+        if book.is_borrowed:
+            raise ValueError("Book already borrowed")
+
+        book.is_borrowed = True
+
+    def return_book(self, book_id):
+        if book_id not in self.books:
+            raise ValueError("Book not found")
+
+        self.books[book_id].is_borrowed = False
+
 
     def get_all_books(self):
         return list(self.books.values())
