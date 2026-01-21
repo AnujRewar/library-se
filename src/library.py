@@ -35,3 +35,14 @@ class Library:
 
     def get_all_books(self):
         return list(self.books.values())
+    
+    def generate_report(self):
+        report = "ID | Title | Author | Status\n"
+        report += "-" * 40 + "\n"
+
+        for book in self.books.values():
+            status = "Borrowed" if book.is_borrowed else "Available"
+            report += f"{book.book_id} | {book.title} | {book.author} | {status}\n"
+
+        return report
+
