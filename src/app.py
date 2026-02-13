@@ -8,6 +8,7 @@ class Book:
     book_id: str
     title: str
     author: str
+    is_borrowed: bool = False
 
 
 
@@ -31,4 +32,30 @@ class LibrarySystem:
             title=title,
             author=author
         )
+    
+    def borrow_book(self, book_id: str) -> None:
+        # Check if book exists
+        if book_id not in self.books:
+            raise KeyError("book not found")
+
+        # Check if already borrowed
+        if self.books[book_id].is_borrowed:
+            raise ValueError("book already borrowed")
+
+        # Mark book as borrowed
+        self.books[book_id].is_borrowed = True
+
+
+    def return_book(self, book_id: str) -> None:
+        # Check if book exists
+        if book_id not in self.books:
+            raise KeyError("book not found")
+
+        # Check if book is not borrowed
+        if not self.books[book_id].is_borrowed:
+            raise ValueError("book not borrowed")
+
+        # Mark book as returned
+        self.books[book_id].is_borrowed = False
+
 

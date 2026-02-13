@@ -29,6 +29,39 @@ class TestSprint1(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             lib.add_book("B101", "Clean Code", "")
+            
+class TestSprint2(unittest.TestCase):
+   
+   def test_borrow_book_success(self):
+        lib=LibrarySystem()
+        lib.add_book("B101", "Clean Code", "Robert C. Martin")
+
+        lib.borrow_book("B101")
+        self.assertTrue(lib.books["B101"].is_borrowed)
+   
+   def test_borrow_already_borrowed_book(self):
+        lib=LibrarySystem()
+        lib.add_book("B101", "Clean Code", "Robert C. Martin")
+        lib.borrow_book("B101")
+        with self.assertRaises(ValueError):
+            lib.borrow_book("B101")
+    
+   def test_return_book_success(self):
+        lib = LibrarySystem()
+        lib.add_book("B101", "Clean Code", "Robert C. Martin")
+
+        lib.borrow_book("B101")
+        lib.return_book("B101")
+
+        self.assertFalse(lib.books["B101"].is_borrowed)
+
+
+   def test_return_not_borrowed_book(self):
+        lib = LibrarySystem()
+        lib.add_book("B101", "Clean Code", "Robert C. Martin")
+        
+        with self.assertRaises(ValueError):
+            lib.return_book("B101")
 
 if __name__ == "__main__":
     unittest.main()
