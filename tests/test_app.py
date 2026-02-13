@@ -63,6 +63,24 @@ class TestSprint2(unittest.TestCase):
         with self.assertRaises(ValueError):
             lib.return_book("B101")
 
+class TestSprint3(unittest.TestCase):
+
+    def test_generate_report_header(self):
+        lib = LibrarySystem()
+        lib.add_book("B301", "Clean Code", "Robert C. Martin")
+
+        report = lib.generate_report()
+
+        self.assertIn("BOOK_ID\tTITLE\tAUTHOR\tSTATUS", report)
+
+    def test_generate_report_contains_book(self):
+        lib = LibrarySystem()
+        lib.add_book("B302", "Refactoring", "Martin Fowler")
+
+        report = lib.generate_report()
+
+        self.assertIn("B302\tRefactoring\tMartin Fowler\tAvailable", report)
+
 if __name__ == "__main__":
     unittest.main()
 

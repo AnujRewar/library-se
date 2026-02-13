@@ -58,4 +58,13 @@ class LibrarySystem:
         # Mark book as returned
         self.books[book_id].is_borrowed = False
 
+    def generate_report(self) -> str:
+        # Report header
+        report = "BOOK_ID\tTITLE\tAUTHOR\tSTATUS\n"
+
+        for book in self.books.values():
+            status = "Borrowed" if book.is_borrowed else "Available"
+            report += f"{book.book_id}\t{book.title}\t{book.author}\t{status}\n"
+
+        return report
 
